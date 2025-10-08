@@ -1,13 +1,28 @@
 set BEACON_RDLL_GENERATE {
     $smpath = script_resource( "AceLdr.". $3 .".bin" );
+    
+    # Check if file exists
+    if (!-f $smpath) {
+        warn("Error: AceLdr binary not found at: " . $smpath);
+        warn("Please run 'make' to build the loader first.");
+        return $null;
+    }
+    
     $hnd = openf( $smpath );
+    if ($hnd eq $null) {
+        warn("Error: Could not open AceLdr binary at: " . $smpath);
+        return $null;
+    }
+    
     $ldr = readb( $hnd, -1 );
     closef( $hnd );
 
     if ( strlen( $ldr ) == 0 ) {
+        warn("Error: AceLdr binary is empty at: " . $smpath);
         return $null;
-    };
+    }
+    
     warn("Loading custom user defined reflective loader from: " . $smpath);
-		
+    
     return setup_transformations($ldr . $2, $3);
 };
