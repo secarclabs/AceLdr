@@ -21716,7 +21716,6 @@ typedef struct _CFG_CALL_TARGET_INFO {
     ULONG_PTR Offset;
     ULONG_PTR Flags;
 } CFG_CALL_TARGET_INFO, *PCFG_CALL_TARGET_INFO;
-#endif
 
 WINBOOL
 WINAPI
@@ -21727,6 +21726,7 @@ SetProcessValidCallTargets(
 	ULONG					NumberOfOffsets,
 	PCFG_CALL_TARGET_INFO 			CfgCallInfo
 	);
+#endif
 
 typedef struct __attribute__((packed))
 {
